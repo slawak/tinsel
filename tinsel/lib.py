@@ -8,7 +8,8 @@ from tinsel.types import NoneType, byte, short, long, T, T_co, FunctorLike, Boun
 
 
 def is_pyspark_class(cls: type) -> bool:
-    return getattr(cls, "__pyspark_struct__", None) is ...
+    dc_fields = getattr(cls, "__dataclass_fields__", None)
+    return (getattr(cls, "__pyspark_struct__", None) is ...) or isinstance(dc_fields, dict)
 
 
 def is_container(cls: type) -> bool:
